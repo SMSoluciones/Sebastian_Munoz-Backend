@@ -20,7 +20,7 @@
 	{
 		"title": "Product3",
 		"description": "Product description",
-		"price": 200,
+		"price": 500,
 		"thumbnail": "No image",
 		"code": "PR03",
 		"stock": 25,

@@ -56,7 +56,21 @@ class ProductManager {
   }
 
   // UPDATE PRODUCTS BY ID
-  updateProduct() {}
+  updateProduct(id, value, newValue) {
+    let findIndex = this.products.findIndex((e) => e.id === id);
+    let validKeys = Object.keys(this.products[findIndex]).some(
+      (e) => e === value
+    );
+
+    if (value === "id") {
+      console.log("The ID value cannot be modified");
+    } else if (!validKeys) {
+      console.log("Select a valid key");
+    } else {
+      this.products[findIndex][value] = newValue;
+      fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"));
+    }
+  }
 
   // DELETE PRODUCTS BY ID
   deleteProduct(id) {
@@ -115,7 +129,7 @@ manager.addProduct(
 // manager.getProductById(2);
 
 // UPDATE BY ID
-manager.updateProduct(3);
+// manager.updateProduct(3, "price", 500);
 
 // FIND AND DELETE
 // manager.deleteProduct(4);
