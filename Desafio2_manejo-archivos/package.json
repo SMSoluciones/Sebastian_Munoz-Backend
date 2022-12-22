@@ -1,0 +1,11 @@
+{
+  "name": "desafio2_manejo-archivos",
+  "version": "1.0.0",
+  "description": "Desafio 2 Manejo de archivos",
+  "main": "Desafio2_manejo-archivos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sebastian",
+  "license": "ISC"
+}
