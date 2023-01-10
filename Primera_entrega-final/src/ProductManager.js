@@ -42,11 +42,11 @@ class ProductManager {
     }
 
     if (findProduct) {
-      console.log("You are entering a duplicate product.");
+      return false;
     } else {
       this.products.push(product);
-      fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t")); // << WRITE
-      console.log("Product added");
+      fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"));
+      return true;
     }
   }
 

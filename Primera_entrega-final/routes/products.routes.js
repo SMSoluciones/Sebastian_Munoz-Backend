@@ -26,4 +26,23 @@ router.get("/:pid", async (req, res) => {
   res.json(response || { error: "Product not found" });
 });
 
+router.post("/", async (req, res) => {
+  const { title, description, category, price, thumbnail, code, stock } =
+    req.body;
+
+  const addPost = await ProductManager.addProduct(
+    title,
+    description,
+    category,
+    price,
+    thumbnail,
+    code,
+    stock
+  );
+
+  addPost
+    ? res.status(201).json({ info: "Product added" })
+    : res.status(406).json({ info: "Product already present in list" });
+});
+
 module.exports = router;
