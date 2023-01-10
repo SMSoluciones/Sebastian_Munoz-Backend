@@ -11,8 +11,9 @@ Desarrollar el servidor basado en Node.JS y express, que escuche en el puerto 80
 ---
 
 Para el manejo de productos, el cual tendrá su router en /api/products/ , configurar las siguientes rutas:
-La ruta raíz GET / deberá listar todos los productos de la base. (Incluyendo la limitación ?limit del desafío anterior
-La ruta GET /:pid deberá traer sólo el producto con el id proporcionado
+
+➡️ La ruta raíz GET / deberá listar todos los productos de la base. (Incluyendo la limitación ?limit del desafío anterior
+La ruta GET /:pid deberá traer sólo el producto con el id proporcionado.
 
 ➡️ La ruta raíz POST / deberá agregar un nuevo producto con los campos:
 
