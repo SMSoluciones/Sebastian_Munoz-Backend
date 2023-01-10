@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 // ProductManager Import
-const { ProductManager } = require("./Desafio3_servidor-express");
+const { ProductManager } = require("./src/ProductManager");
 const manager = new ProductManager("./products.json");
 
 const PORT = 8080;

@@ -3,16 +3,21 @@ const fs = require("fs");
 class ProductManager {
   constructor(path) {
     this.path = path;
-
-    if (fs.existsSync(this.path)) {
-      this.products = JSON.parse(fs.readFileSync(this.path, "utf-8", "\t"));
-    } else {
-      this.products = [];
-    }
+    fs.existsSync(this.path)
+      ? (this.products = JSON.parse(fs.readFileSync(this.path, "utf-8")))
+      : (this.products = []);
   }
 
   //METHODS
-  addProduct = (title, description, price, thumbnail, code, stock) => {
+  async addProduct(
+    title,
+    category,
+    description,
+    price,
+    thumbnail,
+    code,
+    stock
+  ) {
     console.log("Init addProduct");
 
     // FIND PRODUCT
@@ -21,9 +26,11 @@ class ProductManager {
     let product = {
       title: title,
       description: description,
+      category: category,
       price: price,
       thumbnail: thumbnail,
       code: code,
+      status: true,
       stock: stock,
     };
 
@@ -41,7 +48,7 @@ class ProductManager {
       fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t")); // << WRITE
       console.log("Product added");
     }
-  };
+  }
 
   // GET PRODUCTS
   getProduct() {
@@ -86,108 +93,4 @@ class ProductManager {
   }
 }
 
-// MANAGER
-const manager = new ProductManager("./products.json");
-
-// TEST PRODUCTS
-manager.addProduct(
-  "Finos blancos. 1/kg",
-  "Spaghetti al huevo.",
-  700,
-  "No image",
-  "PR01",
-  25
-);
-manager.addProduct(
-  "Cintas. 1/kg",
-  "Spaghetti en cintas al huevo.",
-  700,
-  "No image",
-  "PR02",
-  25
-);
-manager.addProduct(
-  "Ñoquis 1/kg",
-  "Ñoquis de papa.",
-  200,
-  "No image",
-  "PR03",
-  25
-);
-manager.addProduct(
-  "Canelones de C&V. x1",
-  "Rellenos de carne y verdura.",
-  200,
-  "No image",
-  "PR04",
-  25
-);
-
-manager.addProduct(
-  "Ravioles de C&V. 1/kg",
-  "Rellenos de carne y verdura.",
-  200,
-  "No image",
-  "PR05",
-  25
-);
-
-manager.addProduct(
-  "Tarta de J&Q.",
-  "Rellena de jamon y queso.",
-  200,
-  "No image",
-  "PR06",
-  25
-);
-
-manager.addProduct(
-  "Empanada de CS. x1.",
-  "Rellena de carne salada.",
-  200,
-  "No image",
-  "PR07",
-  25
-);
-manager.addProduct(
-  "Empanada de Pollo. x1",
-  "Rellena de pollo.",
-  200,
-  "No image",
-  "PR08",
-  25
-);
-
-manager.addProduct(
-  "Salsa bolognesa. x1",
-  "Salsa bolognesa de la casa.",
-  200,
-  "No image",
-  "PR09",
-  25
-);
-
-manager.addProduct(
-  "Salsa filetto. x1",
-  "Salsa filetto de la casa.",
-  200,
-  "No image",
-  "PR10",
-  25
-);
-
-// // GET PRODUCTS
-// manager.getProduct();
-
-// // GET PRODUCTS BY ID
-// manager.getProductById(2);
-
-// UPDATE BY ID
-// manager.updateProduct(3, "price", 500);
-
-// FIND AND DELETE
-// manager.deleteProduct(4);
-// manager.getProduct(); //<< TEST
-
-// Export
-module.exports = { ProductManager };
+module.exports = new ProductManager("./products.json");
