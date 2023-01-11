@@ -27,35 +27,35 @@ class CartManager {
   }
 
   // Add Product to Cart
-  async addProductToCart(id, product, quantity) {
-    let index = this.cart.findIndex((carts) => carts === id);
-    if (index === -1 || this.cart[index]["products"] === undefined)
-      return false;
-    let productIndex = this.cart[index]["products"].findIndex(
-      (pid) => pid.productId === product
-    );
-    let productExist = this.cart[index]["products"].some(
-      (pid) => pid.productId === product
-    );
+  async addProductToCart(id, pid, quantity) {
+    let carts = this.cart.find((c) => c.id === id);
+    let product = {
+      id: pid,
+      quantity: quantity,
+    };
 
-    if (productExist) {
-      this.cart[index]["products"][productIndex]["quantity"] += quantity;
-    } else {
-      this.cart[index]["products"].push({
-        productId: product,
-        quantity: quantity,
-      });
+    // If product already exists in cart, update quantity
+    let productIndex = carts.products.findIndex((p) => p.id === pid);
+    if (productIndex !== -1) {
+      carts.products[productIndex].quantity += quantity;
+      await fs.writeFileSync(this.path, JSON.stringify(this.cart, null, "\t"));
+      return true;
     }
 
-    await fs.writeFile(this.path, JSON.stringify(this.cart, null, "\t"));
-    return true;
+    if (carts) {
+      carts.products.push(product);
+      await fs.writeFileSync(this.path, JSON.stringify(this.cart, null, "\t"));
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Get Cart
-  getCart() {
+  getCart(id) {
     let carts = this.cart.find((c) => c.id === id);
     return carts || false;
   }
 }
 
-module.exports = new CartManager("./carts.json");
+module.exports = new CartManager("./data/carts.json");

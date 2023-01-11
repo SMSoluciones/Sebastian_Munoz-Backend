@@ -17,16 +17,17 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/:cid/product/:pid", async (req, res) => {
-  const { cid, pid } = req.params;
-  const { quantity } = req.body;
+  let cid = parseInt(req.params.cid);
+  let pid = parseInt(req.params.pid);
 
-  let idExist = ProductManager.getProduct().some((p) => p.id === parseInt(pid));
-  if (!idExist) {
-    res.status(404).json({ info: "Product not found" });
+  let quantity = parseInt(req.body.quantity);
+  let product = CartManager.getCart(pid);
+
+  if (product) {
+    CartManager.addProductToCart(cid, pid, quantity);
+    res.status(201).json({ info: "Product added to cart" });
   } else {
-    (await CartManager.addProductToCart(Number(cid), Number(pid), quantity))
-      ? res.status(201).json({ info: `Product added to cart ${Number(cid)}` })
-      : res.status(404).json({ error: "Cart Add Fail" });
+    res.status(404).json({ info: "Cart not found" });
   }
 });
 

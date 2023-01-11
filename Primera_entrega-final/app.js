@@ -1,32 +1,16 @@
-// Express Import
 const express = require("express");
-const app = express();
-
-// ProductManager Import
-const { ProductManager } = require("./src/ProductManager");
-const manager = new ProductManager("./products.json");
+const ProductsRouter = require("./routes/products.routes");
+const CartRouter = require("./routes/carts.routes");
 
 const PORT = 8080;
+const app = express();
 
-// Get Products & limit
-app.get("/products", (req, res) => {
-  const products = manager.getProduct();
-  const limit = req.query.limit;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-  limit ? res.send(products.slice(0, limit)) : res.send(products);
-
-  res.send(products);
-});
-
-// Get by ID
-app.get("/products/:pid", async (req, res) => {
-  let pid = parseInt(req.params.pid);
-  let response = await manager.getProductById(pid);
-
-  console.log(response);
-  res.json(response || { Error: "Producto no encontrado" });
-});
+app.use("/api/products", ProductsRouter);
+app.use("/api/carts", CartRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });

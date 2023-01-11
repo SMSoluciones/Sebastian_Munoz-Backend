@@ -98,4 +98,4 @@ class ProductManager {
   }
 }
 
-module.exports = new ProductManager("./products.json");
+module.exports = new ProductManager("./data/products.json");
