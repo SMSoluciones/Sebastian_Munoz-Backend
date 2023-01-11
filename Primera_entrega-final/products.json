@@ -34,7 +34,7 @@
   },
   {
     "title": "Canelones de C&V. x1",
-    "description": "Pastas",
+    "description": "VALOR NUEVO",
     "category": "Rellenos de carne y verdura.",
     "price": 200,
     "thumbnail": "No image",
@@ -108,5 +108,16 @@
     "status": true,
     "stock": 25,
     "id": 10
+  },
+  {
+    "title": "Empanada Inventada",
+    "description": "Empanadas",
+    "category": "Empanada Fantasma",
+    "price": 1000,
+    "thumbnail": "No image",
+    "code": "PR202",
+    "status": true,
+    "stock": 200,
+    "id": 11
   }
 ]

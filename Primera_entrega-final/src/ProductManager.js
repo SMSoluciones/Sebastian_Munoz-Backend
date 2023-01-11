@@ -64,19 +64,24 @@ class ProductManager {
   }
 
   // UPDATE PRODUCTS BY ID
-  updateProduct(id, value, newValue) {
+  async updateProduct(id, value, newValue) {
     let findIndex = this.products.findIndex((e) => e.id === id);
-    let validKeys = Object.keys(this.products[findIndex]).some(
-      (e) => e === value
-    );
+    let validKeys;
+    findIndex === -1
+      ? false
+      : (validKeys = Object.keys(this.products[findIndex]).some(
+          (e) => e === value
+        ));
 
-    if (value === "id") {
-      console.log("The ID value cannot be modified");
-    } else if (!validKeys) {
-      console.log("Select a valid key");
+    if (value === "id" || !validKeys) {
+      return false;
     } else {
       this.products[findIndex][value] = newValue;
-      fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"));
+      await fs.writeFileSync(
+        this.path,
+        JSON.stringify(this.products, null, "\t")
+      );
+      return true;
     }
   }
 
@@ -86,9 +91,9 @@ class ProductManager {
     if (searchToDelete) {
       this.products = this.products.filter((e) => e.id !== id);
       fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"));
-      console.log("Product successfully found and removed");
+      return true;
     } else {
-      console.error("Product not found");
+      return false;
     }
   }
 }
