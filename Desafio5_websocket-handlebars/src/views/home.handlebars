@@ -1,16 +1,15 @@
-<h1>Lista de productos agregados</h1>
+<h1>Productos</h1>
+<a href="/realtimeproducts"><button>Administrar</button></a>
+
 <table>
   <thead>
     <tr>
-
       <td>Nombre</td>
       <td>Descripcion</td>
       <td>Categoria</td>
       <td>Precio</td>
       <td>Stock</td>
-
     </tr>
-
   </thead>
 
   <tbody>
@@ -18,10 +17,9 @@
       <tr>
         <td>{{this.title}}</td>
         <td>{{this.description}}</td>
-        <td>{{this.categoria}}</td>
+        <td>{{this.category}}</td>
         <td>{{this.price}}</td>
         <td>{{this.stock}}</td>
-
       </tr>
     {{/each}}
 

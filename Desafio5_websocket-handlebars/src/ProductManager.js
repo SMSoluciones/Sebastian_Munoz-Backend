@@ -17,13 +17,12 @@ class ProductManager {
       product["id"] = this.products[this.products.length - 1]["id"] + 1;
     }
 
-    if (findProduct) {
-      return false;
-    } else {
-      this.products.push(product);
-      fs.writeFileSync(this.path, JSON.stringify(this.products, null, "\t"));
-      return true;
-    }
+    this.products.push(product);
+    await fs.promises.writeFile(
+      this.path,
+      JSON.stringify(this.products, null, "\t")
+    );
+    return true;
   }
 
   // GET PRODUCTS

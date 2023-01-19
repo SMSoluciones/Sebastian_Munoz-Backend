@@ -1,5 +1,6 @@
 const socket = io("http://localhost:8080");
-let arrayProductos = [];
+let productList = [];
+
 document.getElementById("send").addEventListener("click", postProduct);
 
 function postProduct() {
@@ -14,25 +15,25 @@ function postProduct() {
   socket.emit("newProduct", product);
 }
 
-function eliminarProducto(id) {
+function deleteProduct(id) {
   console.log(id);
   socket.emit("deleteProduct", id);
 }
 
-socket.on("arrayProductos", (data) => {
-  let historial = document.getElementById("history");
-  historial.innerHTML = "";
+socket.on("productList", (data) => {
+  let productsOnList = document.getElementById("history");
+  productsOnList.innerHTML = "";
 
   data.forEach((element) => {
-    historial.innerHTML += `
-                    <tr>
-                    <td> ${element.title} </td>
-                    <td>${element.description}</td>
-                    <td>${element.categoria}</td>
-                    <td>$ ${element.price}</td>
-                    <td>${element.stock} Unidades</td>
-                    </tr>
-                    <button onclick="eliminarProducto(${element.id})">Eliminar</button>
+    productsOnList.innerHTML += `
+      <tr>
+      <td> ${element.title} </td>
+      <td>${element.description}</td>
+      <td>${element.categoria}</td>
+      <td>$ ${element.price}</td>
+      <td>${element.stock} Unidades</td>
+      </tr>
+      <button onclick="deleteProduct(${element.id})">Eliminar</button>
     `;
   });
 });

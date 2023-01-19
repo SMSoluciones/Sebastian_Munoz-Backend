@@ -7,7 +7,7 @@ const router = express.Router();
 let productsInList = ProductManager.getProduct();
 
 router.get("/", (req, res) => {
-  res.render("home", { productsInList });
+  res.render("home", { productsInList, stylesheet: "css/styles" });
 });
 
 module.exports = router;
