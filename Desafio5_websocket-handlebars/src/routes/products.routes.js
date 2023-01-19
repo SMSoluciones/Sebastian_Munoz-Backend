@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const ProductManager = require("../src/ProductManager.js");
+const ProductManager = require("../ProductManager");
 
 const router = Router();
 

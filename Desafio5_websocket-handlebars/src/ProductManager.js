@@ -9,31 +9,7 @@ class ProductManager {
   }
 
   //METHODS
-  async addProduct(
-    title,
-    category,
-    description,
-    price,
-    thumbnail,
-    code,
-    stock
-  ) {
-    console.log("Init addProduct");
-
-    // FIND PRODUCT
-    let findProduct = this.products.some((p) => p.code === code);
-
-    let product = {
-      title: title,
-      description: description,
-      category: category,
-      price: price,
-      thumbnail: thumbnail,
-      code: code,
-      status: true,
-      stock: stock,
-    };
-
+  async addProduct(product) {
     // FIND ID
     if (this.products.length === 0) {
       product["id"] = 1;
@@ -58,8 +34,6 @@ class ProductManager {
   // GET PRODUCTS BY ID
   getProductById(id) {
     let findById = this.products.find((p) => p.id === id);
-    !findById ? console.log("Product not found") : console.log("Product found");
-    console.log(`Product ${id}:`, findById);
     return findById;
   }
 
